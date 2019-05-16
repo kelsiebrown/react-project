@@ -47,7 +47,8 @@ class App extends Component {
 
   render() {  
     const style = {
-      backgroundColor: 'white', //inline CSS styles must be camelCase
+      backgroundColor: 'green', //inline CSS styles must be camelCase
+      textColor: 'white',
       font: 'inherit',  // also string values
       border: '1px solid blue',
       padding: '8px',
@@ -70,12 +71,22 @@ class App extends Component {
             })}
         </div> 
       );
+
+      style.backgroundColor = 'red';
+    }
+
+    let classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push('red');
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('bold');
     }
 
     return (
       <div className="App">
         <h1>Hi, this is a React App</h1>
-        <p>This works!</p>
+        <p className={classes.join(' ')}>Here's a paragraph with text.</p>
         <button
          style={style} 
          onClick={this.togglePersonsHandler}>Toggle</button>

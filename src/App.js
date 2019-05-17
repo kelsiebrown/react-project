@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
+import styles from './App.module.css';
 import Person from './Person/Person';
-import Radium, { StyleRoot } from 'radium';
 
 class App extends Component {
   state = {
@@ -47,20 +46,8 @@ class App extends Component {
   }
 
   render() {  
-    const style = {
-      backgroundColor: 'green', //inline CSS styles must be camelCase
-      textColor: 'white',
-      font: 'inherit',  // also string values
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
-    };
-
     let persons = null;
+    let buttonClass = '';
 
     if (this.state.showPersons) {
       persons = (
@@ -77,37 +64,31 @@ class App extends Component {
         </div> 
       );
 
-      style.backgroundColor = 'red';
-      style[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black'
-      }
+      buttonClass = styles.Red;
     }
 
-    let classes = [];
+    let assignedClasses = [];
     if (this.state.persons.length <= 2) {
-      classes.push('red');
+      assignedClasses.push( styles.red );
     }
     if (this.state.persons.length <= 1) {
-      classes.push('bold');
+      assignedClasses.push( styles.bold );
     }
 
     return (
-      <StyleRoot>
-        <div className="App">
+        <div className={styles.App}>
           <h1>Hi, this is a React App</h1>
-          <p className={classes.join(' ')}>Here's a paragraph with text.</p>
-          <button
-          style={style} 
+          <p className={assignedClasses.join(' ')}>Here's a paragraph with text.</p>
+          <button 
+          className={buttonClass} 
           onClick={this.togglePersonsHandler}>Toggle</button>
 
           {persons}  
         </div>
-      </StyleRoot>
     );
     //return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi!'));
   }
 }
 
-export default Radium(App);
+export default App;
 
